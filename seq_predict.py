@@ -1,43 +1,94 @@
-from turtle import pd
+######################
+# Import libraries
+######################
 import pandas as pd
+import PIL
+import streamlit as st       
+
+import altair as alt
+
+######################
+# Page Title
+######################
+
+image = PIL.Image.open('Slide1.JPG')
+
+st.image(image, use_column_width=False)
+
+st.write("""
+# DNA Nucleotide Count Web App
+This app counts the nucleotide composition of query DNA!
+***""")
+
+######################
+# Input Text Box
+######################
+
+# st.sidebar.header('Enter DNA sequence')
+st.header('Enter DNA sequence')
+
+sequence_input = ">DNA Query 2\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCCTATCAGGACGGAAGGTCCTGTGCTCGGG\nATCTTCCAGACGTCGCGACTCTAAATTGCCCCCTCTGAGGTCAAGGAACACAAGATGGTTTTGGAAATGC\nTGAACCCGATACATTATAACATCACCAGCATCGTGCCTGAAGCCATGCCTGCTGCCACCATGCCAGTCCT"
+
+# sequence = st.sidebar.text_area("Sequence input", sequence_input, height=250)
+sequence = st.text_area("Sequence input", sequence_input, height=250)
+sequence = sequence.splitlines()
+sequence = sequence[1:]  # Skips the sequence name (first line)
+sequence = ''.join(sequence)  # Concatenates list to string
+
+st.write("""
+***
+""")
+
+## Prints the input DNA sequence
+st.header('INPUT (DNA Query)')
+sequence
+
+## DNA nucleotide count
+st.header('OUTPUT (DNA Nucleotide Count)')
+
+### 1. Print dictionary
+st.subheader('1. Print dictionary')
 
 
-import streamlit as st
-from sklearn.ensemble import RandomForestClassifier
+def DNA_nucleotide_count(seq):
+    d = dict([
+        ('A', seq.count('A')),
+        ('T', seq.count('T')),
+        ('G', seq.count('G')),
+        ('C', seq.count('C'))
+    ])
+    return d
 
-# Load the data
-@st.cache
-def load_data(file_path, pd=None):
-    df = pd.read_csv(file_path)
-    return df
 
-# Train the ML model
-@st.cache
-def train_model(df):
-    X = df.drop("class", axis=1)
-    y = df["class"]
-    model = RandomForestClassifier()
-    model.fit(X, y)
-    return model
+X = DNA_nucleotide_count(sequence)
 
-# Make predictions
-def predict(model, sequence):
-    prediction = model.predict([sequence])[0]
-    return prediction
+# X_label = list(X)
+# X_values = list(X.values())
 
-# Create the streamlit app
-def main():
-    st.title("Sequence Prediction App")
-    file_path = st.file_uploader("Upload the data file", type=["csv"])
-    if file_path is not None:
-        df = load_data(file_path)
-        model = train_model(df)
-        sequence = st.text_input("Enter the sequence")
-        if st.button("Input"):
-            st.write("You entered:", sequence)
-        if st.button("Predict"):
-            prediction = predict(model, sequence)
-            st.write("The predicted class is:", prediction)
+X
 
-if __name__ == "__main__":
-    main()
+### 2. Print text
+st.subheader('2. Print text')
+st.write('There are  ' + str(X['A']) + ' adenine (A)')
+st.write('There are  ' + str(X['T']) + ' thymine (T)')
+st.write('There are  ' + str(X['G']) + ' guanine (G)')
+st.write('There are  ' + str(X['C']) + ' cytosine (C)')
+
+### 3. Display DataFrame
+st.subheader('3. Display DataFrame')
+df = pd.DataFrame.from_dict(X, orient='index')
+df = df.rename({0: 'count'}, axis='columns')
+df.reset_index(inplace=True)
+df = df.rename(columns={'index': 'nucleotide'})
+st.write(df)
+
+### 4. Display Bar Chart using Altair
+st.subheader('4. Display Bar chart')
+p = alt.Chart(df).mark_bar().encode(
+    x='nucleotide',
+    y='count'
+)
+p = p.properties(
+    width=alt.Step(80)  # controls width of bar.
+)
+st.write(p)
