@@ -90,7 +90,7 @@ p = alt.Chart(df).mark_bar().encode(
 )
 alt.Chart(source).mark_bar().encode(
     x='nucleotide',
-    y='count'
+    y='count',
     # The highlight will be set on the result of a conditional statement
     color=alt.condition(
         alt.datum.nucleotide== A,  # If the year is 1810 this test returns True,
