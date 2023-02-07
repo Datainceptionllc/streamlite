@@ -27,7 +27,7 @@ This app counts the nucleotide composition of query DNA!
 # st.sidebar.header('Enter DNA sequence')
 st.header('Enter DNA sequence')
 
-sequence_input = ">DNA Query 2\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCCTATCAGGACGGAAGGTCCTGTGCTCGGG\nATCTTCCAGACGTCGCGACTCTAAATTGCCCCCTCTGAGGTCAAGGAACACAAGATGGTTTTGGAAATGC\nTGAACCCGATACATTATAACATCACCAGCATCGTGCCTGAAGCCATGCCTGCTGCCACCATGCCAGTCCT"
+sequence_input = input(">DNA Query 2\nGAACACGTGGAGGCAAACAGGAAGGTGAAGAAGAACTTATCCTATCAGGACGGAAGGTCCTGTGCTCGGG\nATCTTCCAGACGTCGCGACTCTAAATTGCCCCCTCTGAGGTCAAGGAACACAAGATGGTTTTGGAAATGC\nTGAACCCGATACATTATAACATCACCAGCATCGTGCCTGAAGCCATGCCTGCTGCCACCATGCCAGTCCT")
 
 # sequence = st.sidebar.text_area("Sequence input", sequence_input, height=250)
 sequence = st.text_area("Sequence input", sequence_input, height=250)
@@ -87,6 +87,16 @@ st.subheader('4. Display Bar chart')
 p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
     y='count'
+)
+alt.Chart(source).mark_bar().encode(
+    x='nucleotide',
+    y='count'
+    # The highlight will be set on the result of a conditional statement
+    color=alt.condition(
+        alt.datum.nucleotide== A,  # If the year is 1810 this test returns True,
+        alt.value('orange'),     # which sets the bar orange.
+        alt.value('steelblue')   # And if it's not true it sets the bar steelblue.
+    )
 )
 p = p.properties(
     width=alt.Step(80)  # controls width of bar.
