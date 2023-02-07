@@ -89,16 +89,7 @@ p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
     y='count'
 )
-alt.Chart(source).mark_bar().encode(
-    x='nucleotide',
-    y='count',
-    # The highlight will be set on the result of a conditional statement
-    color=alt.condition(
-        alt.value.nucleotide== "A",  # If the year is 1810 this test returns True,
-        alt.value('orange'),     # which sets the bar orange.
-        alt.value('steelblue')   # And if it's not true it sets the bar steelblue.
-    )
-)
+
 p = p.properties(
     width=alt.Step(80)  # controls width of bar.
 )
