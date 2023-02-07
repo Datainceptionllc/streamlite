@@ -1,6 +1,7 @@
 ######################
 # Import libraries
 ######################
+from numpy import source
 import pandas as pd
 import PIL
 import streamlit as st       
@@ -93,7 +94,7 @@ alt.Chart(source).mark_bar().encode(
     y='count',
     # The highlight will be set on the result of a conditional statement
     color=alt.condition(
-        alt.datum.nucleotide== "A",  # If the year is 1810 this test returns True,
+        alt.AngleValue.nucleotide== "A",  # If the year is 1810 this test returns True,
         alt.value('orange'),     # which sets the bar orange.
         alt.value('steelblue')   # And if it's not true it sets the bar steelblue.
     )
