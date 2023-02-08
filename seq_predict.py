@@ -106,7 +106,7 @@ user_colour = st.color_picker(label='Choose a colour for your plot',
 p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
     y='count',
-    z='user_colour'
+    c= 'user_colour'
 )
 
 p = p.properties(
