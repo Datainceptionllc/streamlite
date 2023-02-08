@@ -110,8 +110,7 @@ p = alt.Chart(df).mark_bar().encode(
 
 p = p.properties(
     width=alt.Step(80)  # controls width of bar.
-    colors=st.color_picker(label='Choose a colour for your plot', 
-                              value='#1F9A2E')
+    
     
 )
 st.write(p)
