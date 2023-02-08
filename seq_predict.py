@@ -99,9 +99,10 @@ df = df.rename(columns={'index': 'nucleotide'})
 st.write(df)
 
 ### 4. Display Bar Chart using Altair
+
+st.subheader('4.Visual Representation of the Data')
 user_colour = st.color_picker(label='Choose a colour for your plot', 
                               value='#1F9A2E')
-st.subheader('4.Visual Representation of the Data')
 p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
     y='count'
