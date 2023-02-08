@@ -17,7 +17,7 @@ image = PIL.Image.open('genome-intro.PNG')
 st.image(image, use_column_width=False)
 
 st.write("""
-#  streamlit app for counting the frequency of A, T, G, and C in a given DNA sequence!
+#  Streamlit app for counting the frequency of A, T, G, and C in a given DNA sequence!
 ***""")
 
 ######################
@@ -40,7 +40,7 @@ st.write("""
 """)
 
 ## Prints the input DNA sequence
-st.header('INPUT (DNA Query)')
+st.header('Entered Sequence')
 sequence
 
 ## DNA nucleotide count
