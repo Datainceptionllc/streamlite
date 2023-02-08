@@ -17,8 +17,7 @@ image = PIL.Image.open('genomic_analysis.PNG')
 st.image(image, use_column_width=False)
 
 st.write("""
-# DNA Nucleotide Count Web App
-This app counts the nucleotide composition of query DNA!
+#  streamlit app for counting the frequency of A, T, G, and C in a given DNA sequence!
 ***""")
 
 ######################
