@@ -12,7 +12,7 @@ import altair as alt
 # Page Title
 ######################
 
-image = PIL.Image.open('Slide1.JPG')
+image = PIL.Image.open('genomic_analysis.PNG')
 
 st.image(image, use_column_width=False)
 
