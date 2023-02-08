@@ -44,10 +44,10 @@ st.header('Entered Sequence')
 sequence
 
 ## DNA nucleotide count
-st.header('OUTPUT (DNA Nucleotide Count)')
+st.header('Count of A, T, G, and C in a given DNA sequence')
 
 ### 1. Print dictionary
-st.subheader('1. Print dictionary')
+st.subheader('1. Number of each base in a enterd DNA sequence')
 
 
 def DNA_nucleotide_count(seq):
@@ -68,14 +68,14 @@ X = DNA_nucleotide_count(sequence)
 X
 
 ### 2. Print text
-st.subheader('2. Print text')
+st.subheader('2.Description of Bases with Number')
 st.write('There are  ' + str(X['A']) + ' adenine (A)')
 st.write('There are  ' + str(X['T']) + ' thymine (T)')
 st.write('There are  ' + str(X['G']) + ' guanine (G)')
 st.write('There are  ' + str(X['C']) + ' cytosine (C)')
 
 ### 3. Display DataFrame
-st.subheader('3. Display DataFrame')
+st.subheader('3. Tabular Representation of Data')
 df = pd.DataFrame.from_dict(X, orient='index')
 df = df.rename({0: 'count'}, axis='columns')
 df.reset_index(inplace=True)
@@ -83,7 +83,7 @@ df = df.rename(columns={'index': 'nucleotide'})
 st.write(df)
 
 ### 4. Display Bar Chart using Altair
-st.subheader('4. Display Bar chart')
+st.subheader('4.Visual Representation of the Data')
 p = alt.Chart(df).mark_bar().encode(
     x='nucleotide',
     y='count'
